@@ -38,7 +38,7 @@ describe("Order repository test", () => {
         const customerRepository = new CustomerRepository();
         const address = new Address("Rua 1", "Bairro 1", "Cidade 1", "Estado 1", "12345678");
         const customer = new Customer("1", "Customer 1");
-        customer.address = address;
+        customer.changeAddress(address);
 
         await customerRepository.create(customer);
 
@@ -81,7 +81,7 @@ describe("Order repository test", () => {
         const customerRepository = new CustomerRepository();
         const address = new Address("Rua 1", "Bairro 1", "Cidade 1", "Estado 1", "12345678");
         const customer = new Customer("1", "Customer 1");
-        customer.address = address;
+        customer.changeAddress(address);
 
         await customerRepository.create(customer);
 
@@ -98,7 +98,7 @@ describe("Order repository test", () => {
 
         const customer2 = new Customer("2", "Customer 2");
         const address2 = new Address("Rua 2", "Bairro 2", "Cidade 2", "Estado 2", "12345678");
-        customer2.address = address2;
+        customer2.changeAddress(address2);
 
         customerRepository.create(customer2);
 
@@ -143,7 +143,7 @@ describe("Order repository test", () => {
         const customerRepository = new CustomerRepository();
         const address = new Address("Rua 1", "Bairro 1", "Cidade 1", "Estado 1", "12345678");
         const customer = new Customer("1", "Customer 1");
-        customer.address = address;
+        customer.changeAddress(address);
 
         await customerRepository.create(customer);
 
@@ -171,14 +171,14 @@ describe("Order repository test", () => {
         })
 
         expect(orderModel.customer_id).toBe(customer.id);
-        
+
     })
 
     it("should find an order by id", async () => {
         const customerRepository = new CustomerRepository();
         const address = new Address("Rua 1", "Bairro 1", "Cidade 1", "Estado 1", "12345678");
         const customer = new Customer("1", "Customer 1");
-        customer.address = address;
+        customer.changeAddress(address);
 
         await customerRepository.create(customer);
 
@@ -228,7 +228,7 @@ describe("Order repository test", () => {
 
         const address1 = new Address("Rua 1", "Bairro 1", "Cidade 1", "Estado 1", "12345678");
         const customer1= new Customer("1", "Customer 1");
-        customer1.address = address1;
+        customer1.changeAddress(address1);
         await customerRepository.create(customer1);
 
         const product = new Product("1", "Product 1", 10);
@@ -241,7 +241,7 @@ describe("Order repository test", () => {
 
         const address2 = new Address("Rua 2", "Bairro 2", "Cidade 2", "Estado 2", "12345678");
         const customer2= new Customer("2", "Customer 2");
-        customer2.address = address1;
+        customer2.changeAddress(address1);
         await customerRepository.create(customer2);
 
         const product2 = new Product("2", "Product 2", 20);
