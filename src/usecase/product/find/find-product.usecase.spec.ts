@@ -1,5 +1,5 @@
 import Product from "../../../domain/product/entity/product";
-import FindProductUseCase from "./find-product.spec";
+import FindProductUseCase from "./find-product";
 
 const MockProductRepository = ()=>{
     return {
