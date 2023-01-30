@@ -1,12 +1,14 @@
+import AbstractEntity from "../../@shared/entity/entity.abstract";
 import EventDispatcherInterface from "../../@shared/event/event-dispatcher.interface";
+import NotificationError from "../../@shared/notification/notification.error";
 import AddressChangedEvent from "../event/address-changed-event";
 import CustomerCreatedEvent from "../event/customer-created.event";
 import { Address } from "../value-object/address";
 
 
-export class Customer {
+export class Customer extends AbstractEntity{
   private _name: string;
-  private _id: string;
+//   private _id: string;
   private _address!: Address;
   private _active: boolean = false;
   private _rewardPoints: number = 0;
@@ -14,9 +16,15 @@ export class Customer {
 
     constructor(id: string, name: string, 
         eventDispatcher?: EventDispatcherInterface) {
+        super();
+
         this._name = name;
         this._id = id;
         this.validate();
+
+        if(this.notification.hasErrors()){
+            throw new NotificationError(this.notification.errors);
+        }
         
         this._eventDispatcher = eventDispatcher;
 
@@ -26,9 +34,7 @@ export class Customer {
         }
     }
 
-    get id() {
-        return this._id;
-    }
+   
 
     get rewardPoints() : number {
         return this._rewardPoints;
@@ -51,17 +57,23 @@ export class Customer {
     }
 
     validate() {
-
+        if (this.id.length === 0) {
+            // throw new Error("Id is required");
+            this.notification.addError({
+                context: "Customer",
+                message: "Id is required"
+            })
+        }
+        
         if (this._name.length === 0) {
-            throw new Error("Name is required");
+            this.notification.addError({
+                context: "Customer",
+                message: "Name is required"
+            })
+            // throw new Error("Name is required");
 
         }
 
-        if (this._id.length === 0) {
-            throw new Error("Id is required");
-        }
-
-        return true;
     }
 
     changeName(name: string) {

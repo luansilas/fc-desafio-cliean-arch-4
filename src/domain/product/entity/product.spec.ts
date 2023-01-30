@@ -12,16 +12,16 @@ describe("Product unit tests", () => {
 
     it("should throw an error when name is undefined", () => {
         expect(() => {
-            const product = new Product("123", "", 100);
-        }).toThrowError("Name is required");
+            new Product("123", "", 100);
+        }).toThrowError("Product: Name is required");
     })
 
   
 
     it("should throw an error when prive is invalid", () => {
         expect(() => {
-            const product = new Product("123", "Product 1", -1);
-        }).toThrowError("Price must be greater than 0");
+            new Product("123", "Product 1", -1);
+        }).toThrowError("Product: Price must be greater than 0");
     })
 
     it("should change name", () => {
@@ -37,6 +37,14 @@ describe("Product unit tests", () => {
         expect(product.price).toBe(200);
     
     })
+
+    it("should throw an error when name is empty and price is less than zero", ()=>{
+        expect(() => {
+            new Product("123", "", -1);
+        }).toThrowError("Product: Name is required,Product: Price must be greater than 0");
+    })
+
+
 
 
 
