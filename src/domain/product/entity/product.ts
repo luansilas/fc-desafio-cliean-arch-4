@@ -1,3 +1,4 @@
+import { ProductValidatorFactory } from './../factory/product-validator.factory';
 import AbstractEntity from "../../@shared/entity/entity.abstract";
 import NotificationError from "../../@shared/notification/notification.error";
 import ProductInterface from "./product.interface";
@@ -21,36 +22,7 @@ export default class Product extends AbstractEntity implements ProductInterface{
     }
 
     validate(){
-
-
-        if (this._id.length === 0) {
-            this.notification.addError({
-                context: "Product",
-                message: "Id is required"
-            })
-            // throw new Error("Id is required");
-        }
-
-        if (this._name.length === 0) {
-            this.notification.addError({
-                context: "Product",
-                message: "Name is required"
-            })
-            // throw new Error("Name is required");
-        }
-
-        if(this._price <= 0){
-            this.notification.addError({
-                context: "Product",
-                message: "Price must be greater than 0"
-            })
-            // throw new Error("Price must be greater than 0");
-        }
-        
-        // return true;
-      
-
-       
+        ProductValidatorFactory.create().validate(this);
     }
 
     get id() {

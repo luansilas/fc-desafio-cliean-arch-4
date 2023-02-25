@@ -1,3 +1,4 @@
+import { CustomerValidatorFactory } from './../factory/custumer-validation.factory';
 import AbstractEntity from "../../@shared/entity/entity.abstract";
 import EventDispatcherInterface from "../../@shared/event/event-dispatcher.interface";
 import NotificationError from "../../@shared/notification/notification.error";
@@ -57,22 +58,7 @@ export class Customer extends AbstractEntity{
     }
 
     validate() {
-        if (this.id.length === 0) {
-            // throw new Error("Id is required");
-            this.notification.addError({
-                context: "Customer",
-                message: "Id is required"
-            })
-        }
-        
-        if (this._name.length === 0) {
-            this.notification.addError({
-                context: "Customer",
-                message: "Name is required"
-            })
-            // throw new Error("Name is required");
-
-        }
+       CustomerValidatorFactory.create().validate(this);
 
     }
 
